@@ -13,7 +13,6 @@ import Collapse from "@material-ui/core/Collapse";
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => {
-  console.log("this is theme: " + theme);
   return {
     menuButton: {
       marginRight: 36,
@@ -29,13 +28,13 @@ const useStyles = makeStyles((theme) => {
     drawerOpen: {
       width: drawerWidth,
       transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
+        easing: theme.transitions.easing.easeIn,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     drawerClose: {
       transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
+        easing: theme.transitions.easing.easeIn,
         duration: theme.transitions.duration.leavingScreen,
       }),
       overflowX: "hidden",
@@ -148,6 +147,7 @@ const SideBar = (props) => {
   const [open, setDrawerOpen] = useState(false);
   const [menuItems, setMenuItems] = useState(menuItemsObj);
   const classes = useStyles(theme);
+  const userDataObj = JSON.parse(props.userData);
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -162,7 +162,6 @@ const SideBar = (props) => {
   const handleSidebarItem = (indexValue) => {
     setMenuItems(
       menuItems.map((ele, index) => {
-        console.log(index);
         if (indexValue === ele.name) {
           return {
             ...ele,
@@ -202,13 +201,18 @@ const SideBar = (props) => {
       >
         {open ? (
           <div xs={12}>
-            <Avatar alt="David Williams" src="/static/images/avatar/1.jpg" />
-            <Typography>David Williams</Typography>
+            <Avatar
+              alt={userDataObj.firstName}
+              src="/static/images/avatar/1.jpg"
+            />
+            <Typography>
+              {userDataObj.firstName} {userDataObj.lastName}
+            </Typography>
             <Typography variant="caption">
-              Art Director{" "}
+              {userDataObj.designation}
               <KeyboardArrowDownIcon
                 fontSize="small"
-                style={{ "vertical-align": "bottom" }}
+                style={{ verticalAlign: "bottom" }}
               ></KeyboardArrowDownIcon>
             </Typography>
           </div>
