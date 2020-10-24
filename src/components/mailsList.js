@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useImperativeHandle } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { Grid, Typography } from "@material-ui/core";
@@ -110,10 +110,6 @@ const showDate = (timeString) => {
 
 const MailsList = (props) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    console.log(props);
-  }, [props.mails]);
 
   return (
     <>

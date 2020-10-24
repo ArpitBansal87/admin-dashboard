@@ -22,7 +22,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import SendIcon from "@material-ui/icons/Send";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 import ArrowForward from "@material-ui/icons/ArrowForward";
-import { deleteEmail, handleSentEmails } from "../../utils/utils";
+import {
+  deleteEmail,
+  handleSentEmails,
+  readSelectedMails,
+} from "../../utils/utils";
 
 const Dashboard = (props) => {
   const [isDialogOpen, setShowDialog] = useState(false);
@@ -64,10 +68,7 @@ const Dashboard = (props) => {
     setShowDialog(false);
   };
 
-  const refreshMails = () => {
-    // setUserData();
-    childRef.current.updateInbox();
-  };
+  const refreshMails = () => {};
 
   const handleDelete = () => {
     selectedMails.forEach((ele) => {
@@ -75,7 +76,6 @@ const Dashboard = (props) => {
       deleteEmail(dataValue[0], dataValue[1], dataValue[3], dataValue[2]);
     });
     setSelectedMails([]);
-    console.log("delete mail");
     props.updateInbox();
   };
 
@@ -93,7 +93,21 @@ const Dashboard = (props) => {
     }
   };
 
-  const markSelectedMailasRead = (event) => {};
+  const markSelectedMailasRead = (event) => {
+    console.log(event);
+    selectedMails.forEach((ele) => {
+      const mailData = ele.split("-");
+      readSelectedMails(
+        mailData[0],
+        mailData[1],
+        mailData[3],
+        mailData[2],
+        props.heading === "Inbox" ? "inbox" : "sentMails"
+      );
+    });
+    setSelectedMails([]);
+    props.updateInbox(props.heading === "Inbox" ? "inbox" : "sentMails");
+  };
 
   const childRef = useRef();
 
@@ -330,7 +344,10 @@ const Dashboard = (props) => {
                   <Grid item>
                     <Typography variant="h4" gutterBottom={true}>
                       {props.heading} (
-                      {props.inbox ? props.inbox.filter((ele) => !ele.isRead).length: 0})
+                      {props.inbox
+                        ? props.inbox.filter((ele) => !ele.isRead).length
+                        : 0}
+                      )
                     </Typography>
                     <Button
                       variant="outlined"

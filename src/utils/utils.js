@@ -67,3 +67,21 @@ export const deleteEmail = (from, to, subject, body) => {
   });
   localStorage.setItem("mailsList", JSON.stringify(currentMailsList));
 };
+
+export const readSelectedMails = (from, to, subject, body, indicator) => {
+  const inbox = JSON.parse(localStorage.getItem(indicator));
+  const currentValue = JSON.stringify(
+    inbox.map((mail) => {
+      if (
+        mail.from === from &&
+        mail.to === to &&
+        mail.subject === subject &&
+        mail.body === body
+      ) {
+        mail.isRead = true;
+      }
+      return mail;
+    })
+  );
+  localStorage.setItem(indicator, currentValue);
+};
