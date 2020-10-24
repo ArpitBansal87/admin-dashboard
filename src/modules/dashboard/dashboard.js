@@ -68,8 +68,6 @@ const Dashboard = (props) => {
     setShowDialog(false);
   };
 
-  const refreshMails = () => {};
-
   const handleDelete = () => {
     selectedMails.forEach((ele) => {
       const dataValue = ele.split("-");
@@ -130,6 +128,7 @@ const Dashboard = (props) => {
         aria-labelledby="form-dialog-title"
         maxWidth={"sm"}
         fullWidth
+        data-testid="dialog-mail"
       >
         <DialogTitle id="form-dialog-title">New Message</DialogTitle>
         <DialogContent>
@@ -147,6 +146,7 @@ const Dashboard = (props) => {
                 required
                 fullWidth
                 variant="outlined"
+                data-testid="data-from"
               />
               <FormHelperText></FormHelperText>
             </div>
@@ -163,6 +163,7 @@ const Dashboard = (props) => {
                 onChange={(event) => {
                   setTo(event.target.value);
                 }}
+                data-testid="data-to"
               />
             </div>
             <div className={classes.sendMailElement}>
@@ -177,6 +178,7 @@ const Dashboard = (props) => {
                 onChange={(event) => {
                   setSubject(event.target.value);
                 }}
+                data-testid="data-subject"
               />
             </div>
             <div className={classes.sendMailElement}>
@@ -193,6 +195,7 @@ const Dashboard = (props) => {
                 onChange={(event) => {
                   setBody(event.target.value);
                 }}
+                data-testid="data-body"
               />
             </div>
           </form>
@@ -202,6 +205,7 @@ const Dashboard = (props) => {
             variant="contained"
             onClick={handleCloseDialog}
             className={classes.cancelButton}
+            data-testid="data-cancel"
           >
             Cancel
           </Button>
@@ -215,7 +219,12 @@ const Dashboard = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Grid container className={classes.root} spacing={3}>
+      <Grid
+        container
+        className={classes.root}
+        spacing={3}
+        data-testid="mail-content"
+      >
         <Grid item xs={12} lg={3}>
           <Grid
             container
@@ -353,7 +362,6 @@ const Dashboard = (props) => {
                       variant="outlined"
                       startIcon={<CachedIcon fontSize="small" />}
                       className={classes.inboxCtrlButton}
-                      onClick={refreshMails}
                     >
                       Refresh
                     </Button>

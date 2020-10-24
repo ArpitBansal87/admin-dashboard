@@ -192,6 +192,7 @@ const SideBar = (props) => {
       }}
       onMouseEnter={handleDrawerOpen}
       onMouseLeave={handleDrawerClose}
+      data-testid="sidebar-drawer"
     >
       <div
         className={clsx(

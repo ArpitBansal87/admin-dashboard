@@ -149,6 +149,7 @@ function App() {
             className={clsx(classes.appBar, {
               [classes.appBarShift]: open,
             })}
+
           >
             <Toolbar className={classes.toolBarClass}>
               <Button
@@ -212,7 +213,7 @@ function App() {
         </div>
       ) : (
         <div>
-          <SignIn onLogin={handleSuccessfullLogin}></SignIn>
+          <SignIn data-id="sign-In-module" onLogin={handleSuccessfullLogin}></SignIn>
         </div>
       )}
     </>
