@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { Grid, Typography } from "@material-ui/core";
@@ -108,65 +108,62 @@ const showDate = (timeString) => {
   return months[dateObj.getMonth()] + " " + dateObj.getDate();
 };
 
-const MailsList = forwardRef((props, ref) => {
+const MailsList = (props) => {
   const classes = useStyles();
-  // const [inbox, setInbox] = useState(props.mails);
 
-  console.log("inside props" + props);
-
-  const resetInbox = () => {
-    // setInbox(JSON.parse(localStorage.getItem("inbox")));
-  };
-
-  useImperativeHandle(ref, () => ({
-    updateInbox: resetInbox,
-  }));
+  useEffect(() => {
+    console.log(props);
+  }, [props.mails]);
 
   return (
     <>
       <Grid container direction="column">
-        {props.mails.map((data, index) => (
-          <Grid
-            item
-            key={index}
-            className={clsx(
-              classes.mailElement,
-              data.isRead ? classes.mailIsRead : classes.mailIsNotRead
-            )}
-          >
-            <CustomCheckbox
-              mailData={data}
-              handleChange={props.handleSelection}
-              selectedMails={props.selectedMailList}
-            ></CustomCheckbox>
-            <div className={classes.nameInfo}>
-              <Typography variant="body2" className="nameText">
-                {data.from}
-              </Typography>
-              {data.category !== undefined ? (
-                <Labels name={data.category}></Labels>
-              ) : (
-                <></>
+        {props.mails !== null ? (
+          props.mails.map((data, index) => (
+            <Grid
+              item
+              key={index}
+              className={clsx(
+                classes.mailElement,
+                data.isRead ? classes.mailIsRead : classes.mailIsNotRead
               )}
-            </div>
-            <div className={classes.mailDetails}>
-              <Typography variant="body2"> {data.subject}</Typography>
-              {data.hasAttachment ? (
-                <AttachmentIcon
-                  style={{ marginLeft: "auto ", color: colors.greColor1 }}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className={classes.mailDate}>
-              <Typography variant="body2">{showDate(data.time)}</Typography>
-            </div>
-          </Grid>
-        ))}
+            >
+              <CustomCheckbox
+                mailData={data}
+                handleChange={props.handleSelection}
+                selectedMails={props.selectedMailList}
+              ></CustomCheckbox>
+              <div className={classes.nameInfo}>
+                <Typography variant="body2" className="nameText">
+                  {data.from}
+                </Typography>
+                {data.category !== undefined ? (
+                  <Labels name={data.category}></Labels>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className={classes.mailDetails}>
+                <Typography variant="body2"> {data.subject}</Typography>
+                {data.hasAttachment ? (
+                  <AttachmentIcon
+                    style={{ marginLeft: "auto ", color: colors.greColor1 }}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className={classes.mailDate}>
+                <Typography variant="body2">{showDate(data.time)}</Typography>
+              </div>
+            </Grid>
+          ))
+        ) : (
+          <></>
+        )}
       </Grid>
     </>
   );
-});
+};
 
 export default MailsList;

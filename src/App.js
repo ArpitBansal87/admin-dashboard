@@ -133,6 +133,7 @@ function App() {
 
   const handleSuccessfullLogin = () => {
     setLoginSuccess(true);
+    updateInbox("inbox");
   };
 
   const logout = () => {

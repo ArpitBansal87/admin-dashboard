@@ -330,7 +330,7 @@ const Dashboard = (props) => {
                   <Grid item>
                     <Typography variant="h4" gutterBottom={true}>
                       {props.heading} (
-                      {props.inbox.filter((ele) => !ele.isRead).length})
+                      {props.inbox ? props.inbox.filter((ele) => !ele.isRead).length: 0})
                     </Typography>
                     <Button
                       variant="outlined"
