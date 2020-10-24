@@ -1,6 +1,65 @@
 .App {
   text-align: center;
 }
+.form-element {
+  padding: 10px 0;
+}
+
+.home-page-block {
+  background-image: url("./brett-jordan-LPZy4da9aRo-unsplash.jpg");
+  /* Full height */
+  height: 100vh;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.95;
+}
+.home-page-block::after, .home-page-block::before{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 1;
+    display: block;
+    position: absolute;
+    opacity: 0.20;
+}
+.home-page-block::before{
+    background: rgba(0, 0, 0, 0.5);
+}
+.home-page-block::after{
+    background: linear-gradient(60deg,rgb(17, 85, 113),rgb(49, 175, 180));
+}
+.home-page-block .home-page-inner-block{
+    position: relative;
+    z-index: 2;
+}
+
+.home-page-block blockquote{
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    opacity: 0.50;
+    
+}
+.home-page-block blockquote p {
+    color: #767676;
+    transition: color .1s ease-in-out,opacity .1s ease-in-out;
+    -webkit-text-decoration-skip: ink;
+    text-decoration-skip-ink: auto;
+}
+.home-page-block blockquote p a{
+    color: inherit;
+    opacity: 0.40;
+    text-decoration: underline;
+}
+.home-page-block blockquote p a:hover{
+    opacity: 1;
+}
+
 
 .App-logo {
   height: 40vmin;

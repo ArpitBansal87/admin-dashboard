@@ -44,8 +44,11 @@ const SignIn = (props) => {
                 <StockGallery></StockGallery>
               </Grid> */}
               <Grid item>
-                <Paper>
-                  <AppBar position="static">
+                <Paper style={{ padding: "20px" }}>
+                  <AppBar
+                    position="static"
+                    style={{ padding: "10px", alignItems: "center" }}
+                  >
                     <Typography> Sign In </Typography>
                   </AppBar>
                   <div>
@@ -70,7 +73,10 @@ const SignIn = (props) => {
                           required
                         />
                       </div>
-                      <div className="form-element">
+                      <div
+                        className="form-element"
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
                         <Button
                           variant="contained"
                           color="primary"
@@ -95,6 +101,18 @@ const SignIn = (props) => {
           </Container>
         </Box>
       </div>
+      <blockquote>
+        <span>
+          Photo by{" "}
+          <a href="https://unsplash.com/@brett_jordan?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+            Brett Jordan
+          </a>{" "}
+          on{" "}
+          <a href="https://unsplash.com/s/photos/email?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+            Unsplash
+          </a>
+        </span>
+      </blockquote>
     </div>
   );
 };
