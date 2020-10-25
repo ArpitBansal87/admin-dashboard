@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     borderTop: "1px solid",
     borderTopColor: colors.greColor1,
+    cursor: "default",
   },
   "mailElement:last-type-of": {
     borderBottomColor: colors.greColor1,
