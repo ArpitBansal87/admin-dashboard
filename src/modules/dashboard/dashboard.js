@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Button, Divider, FormHelperText, TextField } from "@material-ui/core";
+import { Button, Divider, TextField } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import useStyles from "./dashboardStyles";
 import {
@@ -34,11 +34,11 @@ const Dashboard = (props) => {
   const classes = useStyles();
 
   //Dialog States
-  const [from, setFrom] = useState("");
+  const [cC, setCc] = useState("");
   const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
-  const [isFromValid, setIsFromValid] = useState(true);
+  const [isCCValid, setIsCCvalid] = useState(true);
   const [isToValid, setIsToValid] = useState(true);
   const [isSubjectValid, setIsSubjectValid] = useState(true);
   const [isBodyValid, setIsBodyValid] = useState(true);
@@ -49,12 +49,17 @@ const Dashboard = (props) => {
 
   const handleOpenDialog = () => {
     setShowDialog(true);
+    setTo("");
+    setCc("");
+    setSubject("");
+    setBody("");
+    setIsBodyValid(true);
+    setIsCCvalid(true);
+    setIsToValid(true);
+    setIsSubjectValid(true);
   };
 
   const handleEmailSending = (event) => {
-    from === "" || from === undefined
-      ? setIsFromValid(false)
-      : setIsFromValid(true);
     to === "" || to === undefined ? setIsToValid(false) : setIsToValid(true);
     subject === "" || subject === undefined
       ? setIsSubjectValid(false)
@@ -62,55 +67,39 @@ const Dashboard = (props) => {
     body === "" || body === undefined
       ? setIsBodyValid(false)
       : setIsBodyValid(true);
-    handleSentEmails(from, to, subject, body, userDetails);
-    // childRef.current.updateInbox();
-    props.updateInbox();
-    setShowDialog(false);
+    if (to !== "" && subject !== "" && body !== "") {
+      handleSentEmails(cC, to, subject, body, userDetails);
+      props.updateInbox(props.heading === "Inbox" ? "inbox" : "sentMails");
+      setShowDialog(false);
+    }
   };
 
   const handleDelete = () => {
     selectedMails.forEach((ele) => {
-      const dataValue = ele.split("-");
-      deleteEmail(dataValue[0], dataValue[1], dataValue[3], dataValue[2]);
-    });
-    setSelectedMails([]);
-    props.updateInbox();
-  };
-
-  const selectEmails = (event, data) => {
-    if (event.target.checked) {
-      setSelectedMails([
-        ...selectedMails,
-        `${data.from}-${data.to}-${data.body}-${data.subject}`,
-      ]);
-    } else {
-      let selectMails = selectedMails.filter((ele) => {
-        return ele === `${data.from}-${data.to}-${data.body}-${data.subject}`;
-      });
-      setSelectedMails(selectMails);
-    }
-  };
-
-  const markSelectedMailasRead = (event) => {
-    console.log(event);
-    selectedMails.forEach((ele) => {
-      const mailData = ele.split("-");
-      readSelectedMails(
-        mailData[0],
-        mailData[1],
-        mailData[3],
-        mailData[2],
-        props.heading === "Inbox" ? "inbox" : "sentMails"
-      );
+      deleteEmail(ele, props.heading === "Inbox" ? "inbox" : "sentMails");
     });
     setSelectedMails([]);
     props.updateInbox(props.heading === "Inbox" ? "inbox" : "sentMails");
   };
 
-  const childRef = useRef();
+  const selectEmails = (event, data) => {
+    if (event.target.checked) {
+      setSelectedMails([...selectedMails, data.id]);
+    } else {
+      let selectMails = selectedMails.filter((ele) => ele !== data.id);
+      setSelectedMails(selectMails);
+    }
+  };
+
+  const markSelectedMailasRead = (event) => {
+    selectedMails.forEach((ele) => {
+      readSelectedMails(ele, props.heading === "Inbox" ? "inbox" : "sentMails");
+    });
+    setSelectedMails([]);
+    props.updateInbox(props.heading === "Inbox" ? "inbox" : "sentMails");
+  };
 
   const handleSentMails = () => {
-    console.log("handleSentMails");
     props.changeheading("Sent Mails");
     props.updateInbox("sentMails");
   };
@@ -135,20 +124,16 @@ const Dashboard = (props) => {
           <form autoComplete="off">
             <div className={classes.sendMailElement}>
               <TextField
-                error={!isFromValid}
                 id="component-from"
-                value={from}
-                onChange={(event) => {
-                  setFrom(event.target.value);
-                }}
+                value={localStorage.getItem("loggedInUserEmail")}
                 label="From"
                 type="email"
                 required
                 fullWidth
                 variant="outlined"
                 data-testid="data-from"
+                disabled
               />
-              <FormHelperText></FormHelperText>
             </div>
             <div className={classes.sendMailElement}>
               <TextField
@@ -164,6 +149,22 @@ const Dashboard = (props) => {
                   setTo(event.target.value);
                 }}
                 data-testid="data-to"
+              />
+            </div>
+            <div className={classes.sendMailElement}>
+              <TextField
+                label="Cc"
+                error={!isCCValid}
+                margin="dense"
+                id="cc"
+                type="email"
+                variant="outlined"
+                fullWidth
+                required
+                onChange={(event) => {
+                  setCc(event.target.value);
+                }}
+                data-testid="data-cc"
               />
             </div>
             <div className={classes.sendMailElement}>
@@ -424,7 +425,6 @@ const Dashboard = (props) => {
                   updateMails={props.updateInbox}
                   handleSelection={selectEmails}
                   selectedMailList={selectedMails}
-                  ref={childRef}
                 ></MailsList>
               </Grid>
             </Grid>

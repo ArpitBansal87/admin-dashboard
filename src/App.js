@@ -138,6 +138,9 @@ function App() {
 
   const logout = () => {
     setLoginSuccess(false);
+    localStorage.clear();
+    localStorage.setItem("mailsList", JSON.stringify(userInitialMailsList));
+    localStorage.setItem("sentMailsList", JSON.stringify(userSentMailsList));
   };
   return (
     <>
@@ -149,14 +152,8 @@ function App() {
             className={clsx(classes.appBar, {
               [classes.appBarShift]: open,
             })}
-
           >
             <Toolbar className={classes.toolBarClass}>
-              <Button
-                variant="contained"
-                className={classes.button}
-                startIcon={<MenuIcon />}
-              ></Button>
               <Typography
                 variant="h6"
                 noWrap
@@ -213,7 +210,10 @@ function App() {
         </div>
       ) : (
         <div>
-          <SignIn data-id="sign-In-module" onLogin={handleSuccessfullLogin}></SignIn>
+          <SignIn
+            data-id="sign-In-module"
+            onLogin={handleSuccessfullLogin}
+          ></SignIn>
         </div>
       )}
     </>
