@@ -1,12 +1,12 @@
-# Stocks Listing App
+# Admin Dahboard App
 
 An app to emulate a mail dashboard
 
-![](admin_dashboard.jpeg)
+![](./src/admin_dashboard.jpeg)
 
 ## 🖥️ Project Demo
 
-![](admin_dashboard.gif)
+![](./src/admin_dashboard.gif)
 
 ## 🛠️ Build with
 
