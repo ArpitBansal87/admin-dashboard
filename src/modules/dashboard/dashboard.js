@@ -425,6 +425,7 @@ const Dashboard = (props) => {
                   updateMails={props.updateInbox}
                   handleSelection={selectEmails}
                   selectedMailList={selectedMails}
+                  heading={props.heading}
                 ></MailsList>
               </Grid>
             </Grid>

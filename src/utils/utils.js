@@ -43,7 +43,11 @@ export const handleSentEmails = (cc, to, subject, body) => {
       fromEmail: `${userDetails.email}`,
       hasAttachment: false,
     };
-    currentMailsList[to] = [...currentMailsList[to], mailObj];
+    if (!currentMailsList.hasOwnProperty(to)) {
+      currentMailsList[to] = [mailObj];
+    } else {
+      currentMailsList[to] = [...currentMailsList[to], mailObj];
+    }
     sentMailsList[userDetails.email] = [
       ...sentMailsList[userDetails.email],
       mailObj,

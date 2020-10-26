@@ -116,7 +116,7 @@ const MailsList = (props) => {
               ></CustomCheckbox>
               <div className={classes.nameInfo}>
                 <Typography variant="body2" className="nameText">
-                  {data.from}
+                  {props.heading === 'Inbox' ? data.from : data.to}
                 </Typography>
                 {data.category !== undefined ? (
                   <Labels name={data.category}></Labels>
