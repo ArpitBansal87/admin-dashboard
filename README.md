@@ -10,8 +10,8 @@ A react app to create a mail dashboard.
 
 User Details (Username/Password):
 
-- 1.  john@doe.com/doeJohn
-- 2.  anna@smith.com/smithAnna
+-  john@doe.com/doeJohn
+-  anna@smith.com/smithAnna
 
 ## 📋 Assumptions
 
