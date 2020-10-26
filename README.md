@@ -6,11 +6,19 @@ A react app to create a mail dashboard.
 
 ## 🖥️ Project Demo
 
-User Details (Username/Password): 
-    1. john@doe.com/doeJohn
-    2. anna@smith.com/smithAnna
-
 ![](./src/admin_dashboard.gif)
+
+User Details (Username/Password):
+
+-  john@doe.com/doeJohn
+-  anna@smith.com/smithAnna
+
+## 📋 Assumptions
+
+- [x] Use of local storage for keeping mails.
+- [x] Marking of mails as Read and delete.
+- [x] Sending emails by using compose mail option.
+- [x] 2 Emails have been configured as mentioned under Project demo section.
 
 ## 🛠️ Build with
 
