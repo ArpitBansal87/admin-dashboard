@@ -16,8 +16,6 @@ global.localStorage = localStorageMock;
 const mockEmail = "anna@smith.com";
 
 const mockData = userInitialMailsList[mockEmail];
-const removedData = mockData.slice(1);
-const slicedData = userInitialMailsList[mockEmail][0];
 
 localStorage.setItem("loggedInUserEmail", mockEmail);
 localStorage.setItem("mailsList", JSON.stringify(userInitialMailsList));
@@ -27,12 +25,9 @@ localStorage.setItem("userDetails", JSON.stringify(userDetails[mockEmail]));
 
 describe("Utils Section", () => {
   test("should test deleteEmails functions", () => {
-    utils.deleteEmail(
-      slicedData.from,
-      slicedData.to,
-      slicedData.subject,
-      slicedData.body
-    );
+    utils.setUserData();
+    console.log(JSON.parse(localStorage.getItem("inbox")));
+    utils.deleteEmail(JSON.parse(localStorage.getItem("inbox"))[0].id, "inbox");
     expect(mockData.length - 1).toBe(
       JSON.parse(localStorage.getItem("inbox")).length
     );
@@ -42,7 +37,9 @@ describe("Utils Section", () => {
     utils.setUserData();
     expect(
       JSON.parse(localStorage.getItem("sentMails")).map((ele) => {
-        return { ...ele, time: new Date(ele.time) };
+        ele = { ...ele, time: new Date(ele.time) };
+        delete ele.id;
+        return ele;
       })
     ).toStrictEqual(
       userSentMailsList[mockEmail].map((ele) => {
@@ -52,18 +49,6 @@ describe("Utils Section", () => {
   });
 
   test("should test handleSentEmails functions ", () => {
-    const mockEmailData = {
-      subject: "Many Desktops publishing pacakges",
-      time: new Date(2020, 4, 3, 3, 20, 30),
-      from: "John Doe",
-      fromEmail: "john@doe.com",
-      to: "john@doe.com",
-      body: "test line",
-      isSelected: false,
-      category: "Documents",
-      hasAttachment: true,
-      isRead: true,
-    };
     utils.handleSentEmails(mockEmail, mockEmail, "mock Subject", "mock body");
     expect(JSON.parse(localStorage.getItem("sentMails")).length).toBe(
       mockData.length + 1
