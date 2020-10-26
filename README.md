@@ -1,10 +1,14 @@
 # Admin Dahboard App
 
-An app to emulate a mail dashboard
+A react app to create a mail dashboard.
 
 ![](./src/admin_dashboard.jpeg)
 
 ## 🖥️ Project Demo
+
+User Details (Username/Password): 
+    1. john@doe.com/doeJohn
+    2. anna@smith.com/smithAnna
 
 ![](./src/admin_dashboard.gif)
 

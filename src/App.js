@@ -7,7 +7,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import MenuIcon from "@material-ui/icons/Menu";
 import SideBar from "./modules/sidebar/sidebar";
 import Dashboard from "./modules/dashboard/dashboard";
 import {
@@ -138,6 +137,9 @@ function App() {
 
   const logout = () => {
     setLoginSuccess(false);
+    localStorage.clear();
+    localStorage.setItem("mailsList", JSON.stringify(userInitialMailsList));
+    localStorage.setItem("sentMailsList", JSON.stringify(userSentMailsList));
   };
   return (
     <>
@@ -149,14 +151,8 @@ function App() {
             className={clsx(classes.appBar, {
               [classes.appBarShift]: open,
             })}
-
           >
             <Toolbar className={classes.toolBarClass}>
-              <Button
-                variant="contained"
-                className={classes.button}
-                startIcon={<MenuIcon />}
-              ></Button>
               <Typography
                 variant="h6"
                 noWrap
@@ -212,8 +208,10 @@ function App() {
           </main>
         </div>
       ) : (
-        <div>
-          <SignIn data-id="sign-In-module" onLogin={handleSuccessfullLogin}></SignIn>
+        <div data-testid="sign-In-module">
+          <SignIn
+            onLogin={handleSuccessfullLogin}
+          ></SignIn>
         </div>
       )}
     </>

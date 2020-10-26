@@ -5,7 +5,8 @@ import { Grid, Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import AttachmentIcon from "@material-ui/icons/Attachment";
-import { colors, categories, months } from "../utils/constants";
+import { colors, categories } from "../utils/constants";
+import { showDate } from "../utils/utils";
 
 const useStyles = makeStyles((theme) => ({
   mailElement: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     borderTop: "1px solid",
     borderTopColor: colors.greColor1,
+    cursor: "default",
   },
   "mailElement:last-type-of": {
     borderBottomColor: colors.greColor1,
@@ -50,19 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mailsSelected = (selectedObj, mailObj) => {
-  const isObjectPresent = selectedObj.find((ele) => {
-    const objValue = ele.split("-");
-    if (
-      mailObj.from === objValue[0] &&
-      mailObj.to === objValue[1] &&
-      mailObj.body === objValue[2] &&
-      mailObj.subject === objValue[3]
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  const isObjectPresent = selectedObj.find((ele) => ele === mailObj.id);
   return isObjectPresent !== undefined ? true : false;
 };
 
@@ -77,8 +67,8 @@ const CustomCheckbox = withStyles({
   <Checkbox
     color="default"
     {...props}
-    checked={mailsSelected(props.selectedMails, props.mailData)}
-    onChange={(event) => props.handleChange(event, props.mailData)}
+    checked={mailsSelected(props.selectedmails, props.maildata)}
+    onChange={(event) => props.change(event, props.maildata)}
   />
 ));
 
@@ -103,11 +93,6 @@ const Labels = (props) => {
   );
 };
 
-const showDate = (timeString) => {
-  const dateObj = new Date(timeString);
-  return months[dateObj.getMonth()] + " " + dateObj.getDate();
-};
-
 const MailsList = (props) => {
   const classes = useStyles();
 
@@ -125,9 +110,9 @@ const MailsList = (props) => {
               )}
             >
               <CustomCheckbox
-                mailData={data}
-                handleChange={props.handleSelection}
-                selectedMails={props.selectedMailList}
+                maildata={data}
+                change={props.handleSelection}
+                selectedmails={props.selectedMailList}
               ></CustomCheckbox>
               <div className={classes.nameInfo}>
                 <Typography variant="body2" className="nameText">
