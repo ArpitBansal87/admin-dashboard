@@ -148,7 +148,9 @@ const Dashboard = (props) => {
                 onChange={(event) => {
                   setTo(event.target.value);
                 }}
-                data-testid="data-to"
+                inputProps={{
+                  "data-testid": "data-to",
+                }}
               />
             </div>
             <div className={classes.sendMailElement}>
@@ -164,7 +166,9 @@ const Dashboard = (props) => {
                 onChange={(event) => {
                   setCc(event.target.value);
                 }}
-                data-testid="data-cc"
+                inputProps={{
+                  "data-testid": "data-cc",
+                }}
               />
             </div>
             <div className={classes.sendMailElement}>
@@ -179,7 +183,9 @@ const Dashboard = (props) => {
                 onChange={(event) => {
                   setSubject(event.target.value);
                 }}
-                data-testid="data-subject"
+                inputProps={{
+                  "data-testid": "data-subject",
+                }}
               />
             </div>
             <div className={classes.sendMailElement}>
@@ -196,7 +202,9 @@ const Dashboard = (props) => {
                 onChange={(event) => {
                   setBody(event.target.value);
                 }}
-                data-testid="data-body"
+                inputProps={{
+                  "data-testid": "data-body",
+                }}
               />
             </div>
           </form>
@@ -215,6 +223,7 @@ const Dashboard = (props) => {
             onClick={handleEmailSending}
             className={classes.sendButton}
             endIcon={<SendIcon />}
+            data-testid="data-send"
           >
             Send
           </Button>
@@ -239,6 +248,7 @@ const Dashboard = (props) => {
                 size={"large"}
                 className={classes.composeButton}
                 onClick={handleOpenDialog}
+                data-testid="compose-mail-button"
               >
                 Compose Mail
               </Button>
@@ -258,6 +268,7 @@ const Dashboard = (props) => {
                   item
                   className={classes.folderInfoItem}
                   onClick={handleInboxMail}
+                  data-testid="inbox-button"
                 >
                   <span className="material-icons">inbox</span>
                   <Typography variant="body2">Inbox</Typography>
@@ -281,6 +292,7 @@ const Dashboard = (props) => {
                   item
                   className={classes.folderInfoItem}
                   onClick={handleSentMails}
+                  data-testid="sent-mails-button"
                 >
                   <span className="material-icons">mail</span>
                   <Typography variant="body2">Sent mails</Typography>
@@ -371,6 +383,7 @@ const Dashboard = (props) => {
                       startIcon={<VisibilityIcon fontSize="small" />}
                       className={classes.inboxCtrlButton}
                       onClick={markSelectedMailasRead}
+                      data-testid="mark-read-button"
                     ></Button>
                     <Button
                       variant="outlined"
@@ -382,6 +395,7 @@ const Dashboard = (props) => {
                       startIcon={<DeleteIcon fontSize="small" />}
                       className={classes.inboxCtrlButton}
                       onClick={handleDelete}
+                      data-testid="mark-delete-button"
                     ></Button>
                   </Grid>
                   <Grid

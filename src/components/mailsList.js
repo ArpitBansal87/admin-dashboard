@@ -69,6 +69,9 @@ const CustomCheckbox = withStyles({
     {...props}
     checked={mailsSelected(props.selectedmails, props.maildata)}
     onChange={(event) => props.change(event, props.maildata)}
+    inputProps={{
+      "data-testid": "checkbox-" + props.maildata.id,
+    }}
   />
 ));
 
@@ -116,7 +119,7 @@ const MailsList = (props) => {
               ></CustomCheckbox>
               <div className={classes.nameInfo}>
                 <Typography variant="body2" className="nameText">
-                  {props.heading === 'Inbox' ? data.from : data.to}
+                  {props.heading === "Inbox" ? data.from : data.to}
                 </Typography>
                 {data.category !== undefined ? (
                   <Labels name={data.category}></Labels>

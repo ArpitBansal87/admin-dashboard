@@ -40,9 +40,6 @@ const SignIn = (props) => {
         <Box pt={10}>
           <Container maxWidth="lg">
             <Grid container justify="center">
-              {/* <Grid item>
-                <StockGallery></StockGallery>
-              </Grid> */}
               <Grid item>
                 <Paper style={{ padding: "20px" }}>
                   <AppBar
@@ -51,7 +48,7 @@ const SignIn = (props) => {
                   >
                     <Typography> Sign In </Typography>
                   </AppBar>
-                  <div>
+                  <div data-testid="signIn">
                     <form onSubmit={handleSubmit}>
                       <div className="form-element">
                         <TextField
@@ -61,6 +58,9 @@ const SignIn = (props) => {
                           onChange={handleInputChange}
                           value={inputs.userName}
                           required
+                          inputProps={{
+                            "data-testid": "username-text",
+                          }}
                         />
                       </div>
                       <div className="form-element">
@@ -71,23 +71,27 @@ const SignIn = (props) => {
                           onChange={handleInputChange}
                           value={inputs.password}
                           required
+                          inputProps={{
+                            "data-testid": "password-text",
+                          }}
                         />
                       </div>
                       <div
                         className="form-element"
                         style={{ display: "flex", justifyContent: "center" }}
+                        data-testid="signinbtn"
                       >
                         <Button
                           variant="contained"
                           color="primary"
                           type="submit"
+                          data-testid="signInBtn"
                         >
                           Sign In
                         </Button>
                       </div>
                       {error ? (
-                        <Typography color="error">
-                          {" "}
+                        <Typography data-testid="errorMsg" color="error">
                           Incorrect credentials provided
                         </Typography>
                       ) : (
