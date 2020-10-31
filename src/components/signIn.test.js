@@ -27,7 +27,7 @@ describe("Test for Sign In", () => {
     expect(mailContentExists).toBeTruthy();
   });
 
-  describe("Error Message shown incase of invalid ui ", () => {
+  describe("Error Message shown incase of invalid credentials  ", () => {
     let errorMessage;
     beforeEach(async () => {
       clickSubmit();

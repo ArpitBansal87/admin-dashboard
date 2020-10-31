@@ -187,6 +187,7 @@ function App() {
                   startIcon={<ExitToAppIcon></ExitToAppIcon>}
                   onClick={logout}
                   style={{ marginLeft: "1.5rem", color: colors.greColor1 }}
+                  data-testid="logout-button"
                 >
                   Logout
                 </Button>
@@ -209,9 +210,7 @@ function App() {
         </div>
       ) : (
         <div data-testid="sign-In-module">
-          <SignIn
-            onLogin={handleSuccessfullLogin}
-          ></SignIn>
+          <SignIn onLogin={handleSuccessfullLogin}></SignIn>
         </div>
       )}
     </>
