@@ -60,6 +60,7 @@ const Dashboard = (props) => {
   };
 
   const handleEmailSending = (event) => {
+    event.preventDefault();
     to === "" || to === undefined ? setIsToValid(false) : setIsToValid(true);
     subject === "" || subject === undefined
       ? setIsSubjectValid(false)
@@ -121,7 +122,11 @@ const Dashboard = (props) => {
           data-testid="dialog-mail"
         >
           <DialogTitle id="form-dialog-title">New Message</DialogTitle>
-          <form autoComplete="off" noValidate={false}>
+          <form
+            autoComplete="off"
+            noValidate={false}
+            onSubmit={handleEmailSending}
+          >
             <DialogContent>
               <div className={classes.sendMailElement}>
                 <TextField
@@ -134,7 +139,7 @@ const Dashboard = (props) => {
                   variant="outlined"
                   data-testid="data-from"
                   disabled
-                  pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
+                  pattern="[a-zA-Z]{3,}[.]{0,}[a-zA-Z]{0,}@[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
                 />
               </div>
               <div className={classes.sendMailElement}>
@@ -152,8 +157,9 @@ const Dashboard = (props) => {
                   }}
                   inputProps={{
                     "data-testid": "data-to",
+                    pattern:
+                      "[a-zA-Z]{3,}[.]{0,}[a-zA-Z]{0,}@[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}",
                   }}
-                  pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
                 />
               </div>
               <div className={classes.sendMailElement}>
@@ -170,8 +176,9 @@ const Dashboard = (props) => {
                   }}
                   inputProps={{
                     "data-testid": "data-cc",
+                    pattern:
+                      "[a-zA-Z]{3,}[.]{0,}[a-zA-Z]{0,}@[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}",
                   }}
-                  pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
                 />
               </div>
               <div className={classes.sendMailElement}>
@@ -222,11 +229,13 @@ const Dashboard = (props) => {
               </Button>
               <Button
                 variant="contained"
-                onClick={handleEmailSending}
                 className={classes.sendButton}
                 endIcon={<SendIcon />}
                 data-testid="data-send"
                 type="submit"
+                inputProps={{
+                  type: "submit",
+                }}
               >
                 Send
               </Button>
