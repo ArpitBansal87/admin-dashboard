@@ -111,124 +111,132 @@ const Dashboard = (props) => {
 
   return (
     <>
-      <Dialog
-        open={isDialogOpen}
-        onClose={handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-        maxWidth={"sm"}
-        fullWidth
-        data-testid="dialog-mail"
-      >
-        <DialogTitle id="form-dialog-title">New Message</DialogTitle>
-        <DialogContent>
-          <form autoComplete="off">
-            <div className={classes.sendMailElement}>
-              <TextField
-                id="component-from"
-                value={localStorage.getItem("loggedInUserEmail")}
-                label="From"
-                type="email"
-                required
-                fullWidth
-                variant="outlined"
-                data-testid="data-from"
-                disabled
-              />
-            </div>
-            <div className={classes.sendMailElement}>
-              <TextField
-                label="To"
-                error={!isToValid}
-                margin="dense"
-                id="to"
-                type="email"
-                variant="outlined"
-                fullWidth
-                required
-                onChange={(event) => {
-                  setTo(event.target.value);
-                }}
-                inputProps={{
-                  "data-testid": "data-to",
-                }}
-              />
-            </div>
-            <div className={classes.sendMailElement}>
-              <TextField
-                label="Cc"
-                error={!isCCValid}
-                margin="dense"
-                id="cc"
-                type="email"
-                variant="outlined"
-                fullWidth
-                required
-                onChange={(event) => {
-                  setCc(event.target.value);
-                }}
-                inputProps={{
-                  "data-testid": "data-cc",
-                }}
-              />
-            </div>
-            <div className={classes.sendMailElement}>
-              <TextField
-                error={!isSubjectValid}
-                label="Subject"
-                margin="dense"
-                id="subject"
-                type="text"
-                variant="outlined"
-                fullWidth
-                onChange={(event) => {
-                  setSubject(event.target.value);
-                }}
-                inputProps={{
-                  "data-testid": "data-subject",
-                }}
-              />
-            </div>
-            <div className={classes.sendMailElement}>
-              <TextField
-                error={!isBodyValid}
-                margin="dense"
-                id="body"
-                label=""
-                type="email"
-                fullWidth
-                multiline
-                rows={5}
-                variant="outlined"
-                onChange={(event) => {
-                  setBody(event.target.value);
-                }}
-                inputProps={{
-                  "data-testid": "data-body",
-                }}
-              />
-            </div>
+      {isDialogOpen ? (
+        <Dialog
+          open={isDialogOpen}
+          onClose={handleCloseDialog}
+          aria-labelledby="form-dialog-title"
+          maxWidth={"sm"}
+          fullWidth
+          data-testid="dialog-mail"
+        >
+          <DialogTitle id="form-dialog-title">New Message</DialogTitle>
+          <form autoComplete="off" noValidate={false}>
+            <DialogContent>
+              <div className={classes.sendMailElement}>
+                <TextField
+                  id="component-from"
+                  value={localStorage.getItem("loggedInUserEmail")}
+                  label="From"
+                  type="email"
+                  required
+                  fullWidth
+                  variant="outlined"
+                  data-testid="data-from"
+                  disabled
+                  pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
+                />
+              </div>
+              <div className={classes.sendMailElement}>
+                <TextField
+                  label="To"
+                  error={!isToValid}
+                  margin="dense"
+                  id="to"
+                  type="email"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  onChange={(event) => {
+                    setTo(event.target.value);
+                  }}
+                  inputProps={{
+                    "data-testid": "data-to",
+                  }}
+                  pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
+                />
+              </div>
+              <div className={classes.sendMailElement}>
+                <TextField
+                  label="Cc"
+                  error={!isCCValid}
+                  margin="dense"
+                  id="cc"
+                  type="email"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(event) => {
+                    setCc(event.target.value);
+                  }}
+                  inputProps={{
+                    "data-testid": "data-cc",
+                  }}
+                  pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
+                />
+              </div>
+              <div className={classes.sendMailElement}>
+                <TextField
+                  error={!isSubjectValid}
+                  label="Subject"
+                  margin="dense"
+                  id="subject"
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(event) => {
+                    setSubject(event.target.value);
+                  }}
+                  inputProps={{
+                    "data-testid": "data-subject",
+                  }}
+                />
+              </div>
+              <div className={classes.sendMailElement}>
+                <TextField
+                  error={!isBodyValid}
+                  margin="dense"
+                  id="body"
+                  label=""
+                  type="email"
+                  fullWidth
+                  multiline
+                  rows={5}
+                  variant="outlined"
+                  onChange={(event) => {
+                    setBody(event.target.value);
+                  }}
+                  inputProps={{
+                    "data-testid": "data-body",
+                  }}
+                />
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                variant="contained"
+                onClick={handleCloseDialog}
+                className={classes.cancelButton}
+                data-testid="data-cancel"
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                onClick={handleEmailSending}
+                className={classes.sendButton}
+                endIcon={<SendIcon />}
+                data-testid="data-send"
+                type="submit"
+              >
+                Send
+              </Button>
+            </DialogActions>
           </form>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={handleCloseDialog}
-            className={classes.cancelButton}
-            data-testid="data-cancel"
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleEmailSending}
-            className={classes.sendButton}
-            endIcon={<SendIcon />}
-            data-testid="data-send"
-          >
-            Send
-          </Button>
-        </DialogActions>
-      </Dialog>
+        </Dialog>
+      ) : (
+        <></>
+      )}
+
       <Grid
         container
         className={classes.root}
@@ -364,7 +372,11 @@ const Dashboard = (props) => {
                   className={classes.emailSectionHeading}
                 >
                   <Grid item>
-                    <Typography variant="h4" gutterBottom={true}>
+                    <Typography
+                      variant="h4"
+                      gutterBottom={true}
+                      data-testid="heading-dashboard-content"
+                    >
                       {props.heading} (
                       {props.inbox
                         ? props.inbox.filter((ele) => !ele.isRead).length

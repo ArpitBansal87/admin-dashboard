@@ -120,10 +120,18 @@ describe("should test Dashboard component", () => {
         userInitialMailsList[mockEmail].length - 1
       );
     });
+
   });
 
   describe("Should be able to send email", () => {
-    test("send email ", async () => {
+    test("send email validation failure", async () => {
+      fireEvent.click(dashboard.getByTestId("compose-mail-button"));
+      fireEvent.click(dashboard.getByTestId("data-send"));
+      expect(JSON.parse(localStorage.getItem("sentMails")).length).toBe(
+        userSentMailsList[mockEmail].length
+      );
+    });
+    test("send email functionality", async () => {
       fireEvent.click(dashboard.getByTestId("compose-mail-button"));
       const ccTextField = await screen.findByTestId("data-cc");
       const toTextField = await screen.findByTestId("data-to");
@@ -141,6 +149,13 @@ describe("should test Dashboard component", () => {
       expect(JSON.parse(localStorage.getItem("sentMails")).length).toBe(
         userSentMailsList[mockEmail].length + 1
       );
+    });
+
+    test("close dialog for compose mails", async () => {
+      fireEvent.click(dashboard.getByTestId("compose-mail-button"));
+      fireEvent.click(dashboard.getByTestId("data-cancel"));
+      // const dialogBox = await screen.getByTestId("dialog-mail");
+      expect(screen.queryByTestId("dialog-mail")).not.toBeInTheDocument();
     });
   });
 });

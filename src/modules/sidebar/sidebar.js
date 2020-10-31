@@ -82,18 +82,21 @@ const menuItemsObj = [
     icons: "dashboard",
     hasSubLevel: false,
     isOpen: false,
+    testid: "sidebar-content-dashboards",
   },
   {
     name: "Layouts",
     icons: "web",
     hasSubLevel: false,
     isOpen: false,
+    testid: "sidebar-content-layouts",
   },
   {
     name: "Graphs",
     icons: "bar_chart",
     hasSubLevel: false,
     isOpen: false,
+    testid: "sidebar-content-graphs",
   },
   {
     name: "Mailbox",
@@ -101,6 +104,7 @@ const menuItemsObj = [
     hasSubLevel: true,
     isSelected: true,
     labelValue: "16/24",
+    testid: "sidebar-content-mailbox",
     children: [
       {
         name: "Inbox",
@@ -124,21 +128,25 @@ const menuItemsObj = [
     name: "Metrics",
     icons: "pie_chart",
     hasSubLevel: false,
+    testid: "sidebar-content-metrics",
   },
   {
     name: "Widgets",
     icons: "widgets",
     hasSubLevel: false,
+    testid: "sidebar-content-widgets",
   },
   {
     name: "Forms",
     icons: "list_alt",
     hasSubLevel: false,
+    testid: "sidebar-content-forms",
   },
   {
     name: "App Views",
     icons: "video_label",
     hasSubLevel: false,
+    testid: "sidebar-content-app-views",
   },
 ];
 
@@ -179,6 +187,7 @@ const SideBar = (props) => {
 
   return (
     <Drawer
+    id="drawer"
       variant="permanent"
       className={clsx(classes.drawer, {
         [classes.drawerOpen]: open,
@@ -199,6 +208,7 @@ const SideBar = (props) => {
           classes.toolbar,
           open ? classes.openDrawerToolbar : classes.closedDrawer
         )}
+        data-testid="sidebar-name-field"
       >
         {open ? (
           <div xs={12}>
@@ -230,7 +240,11 @@ const SideBar = (props) => {
             className={clsx(data.isSelected ? classes.selectedSideBarItem : "")}
             key={index}
           >
-            <ListItem button onClick={() => handleSidebarItem(data.name)}>
+            <ListItem
+              button
+              onClick={() => handleSidebarItem(data.name)}
+              data-testid={data.testid}
+            >
               <ListItemIcon>
                 <span className="material-icons">{data.icons}</span>
               </ListItemIcon>
@@ -248,6 +262,7 @@ const SideBar = (props) => {
                 in={data.isSelected && open}
                 timeout="auto"
                 unmountOnExit
+                data-testid="sidebar-sub-items"
               >
                 <List component="div" disablePadding>
                   {data.children.map((ele, idx) => (
