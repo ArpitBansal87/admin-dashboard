@@ -60,6 +60,7 @@ const Dashboard = (props) => {
   };
 
   const handleEmailSending = (event) => {
+    event.preventDefault();
     to === "" || to === undefined ? setIsToValid(false) : setIsToValid(true);
     subject === "" || subject === undefined
       ? setIsSubjectValid(false)
