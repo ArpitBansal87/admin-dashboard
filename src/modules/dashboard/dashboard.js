@@ -226,6 +226,7 @@ const Dashboard = (props) => {
                 className={classes.sendButton}
                 endIcon={<SendIcon />}
                 data-testid="data-send"
+                type="submit"
               >
                 Send
               </Button>
